@@ -16,13 +16,12 @@ module Api
 
       # Filter to keep things simple
       routes = routes.select do |r|
-        r[:verb].present? &&
-          r[:verb].include?("GET") &&
-          r[:path].present? &&
+        r[:path].present? &&
           !r[:path].start_with?("/rails/") &&
+          !r[:path].start_with?("/cable") &&
           !r[:path].start_with?("/assets") &&
           !r[:path].start_with?("/sidekiq") &&
-          !r[:path].include?(":") # skip dynamic segments for now
+          !r[:path].include?(":format")
       end
 
       routes = routes.uniq { |r| [r[:verb], r[:path]] }

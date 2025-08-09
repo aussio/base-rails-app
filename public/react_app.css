@@ -1,0 +1,76 @@
+.app-container {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  padding: 16px;
+}
+
+.section-sep {
+  margin: 24px 0;
+}
+
+.error {
+  color: crimson;
+}
+
+.route-item {
+  margin: 24px 0;
+  list-style-type: none;
+}
+
+.response {
+  margin-top: 8px;
+  background: #111;
+  color: #eee;
+  padding: 12px;
+  border-radius: 6px;
+  max-width: 800px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.path-container {
+  margin-top: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  transition: background 0.1s ease-in-out;
+}
+
+.path-container:hover {
+  background: #eeeeee;
+}
+
+.path-container-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.verb-tag {
+  background: #111;
+  color: #eee;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.verb-tag.get {
+  background: #008000;
+}
+
+.verb-tag.post {
+  background: #0000ff;
+}
+
+.verb-tag.put {
+  background: #ffa500;
+}
+
+.verb-tag.delete {
+  background: #ff0000;
+}
+
+.path {
+  flex: 1;
+}

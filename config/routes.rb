@@ -16,6 +16,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   namespace :api do
-    resources :routes, only: [:index]
+    resources :routes, only: [:index], format: false
   end
 end
