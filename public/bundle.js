@@ -19315,10 +19315,10 @@
   var import_react4 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
-  // public/App.js
+  // public/App.jsx
   var import_react3 = __toESM(require_react());
 
-  // public/SwaggerView.js
+  // public/src/SwaggerView.jsx
   var import_react = __toESM(require_react());
   function RoutesList({ routes }) {
     return /* @__PURE__ */ import_react.default.createElement("div", null, Object.entries(routes).map(([group, groupRoutes]) => /* @__PURE__ */ import_react.default.createElement("div", { key: group, className: "route-group" }, /* @__PURE__ */ import_react.default.createElement("h2", null, group || "root"), /* @__PURE__ */ import_react.default.createElement("ul", null, groupRoutes.map((r) => /* @__PURE__ */ import_react.default.createElement("li", { key: `${r.verb}-${r.path}`, className: "route-item" }, /* @__PURE__ */ import_react.default.createElement(Path, { verb: r.verb, path: r.path })))))));
@@ -19357,13 +19357,13 @@
     return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Available endpoints"), routesError && /* @__PURE__ */ import_react.default.createElement("pre", { className: "error" }, routesError), Object.keys(routes).length > 0 && /* @__PURE__ */ import_react.default.createElement(RoutesList, { routes }));
   }
 
-  // public/ChatsView.js
+  // public/src/ChatsView.jsx
   var import_react2 = __toESM(require_react());
   function ChatsView() {
     return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h1", null, "Chats"), /* @__PURE__ */ import_react2.default.createElement("p", null, "Chats page coming soon."));
   }
 
-  // public/App.js
+  // public/App.jsx
   function App() {
     const [page, setPage] = import_react3.default.useState("swagger");
     const [routes, setRoutes] = import_react3.default.useState({});

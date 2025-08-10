@@ -1,6 +1,6 @@
 import React from "react";
-import SwaggerView from "./SwaggerView.js";
-import ChatsView from "./ChatsView.js";
+import SwaggerView from "./src/SwaggerView.jsx";
+import ChatsView from "./src/ChatsView.jsx";
 
 export default function App() {
   const [page, setPage] = React.useState("swagger");
