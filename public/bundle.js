@@ -19320,6 +19320,15 @@
 
   // public/src/SwaggerView.jsx
   var import_react = __toESM(require_react());
+  function safeJson(res) {
+    return res.text().then((text) => {
+      try {
+        return JSON.parse(text);
+      } catch {
+        return text;
+      }
+    });
+  }
   function RoutesList({ routes }) {
     return /* @__PURE__ */ import_react.default.createElement("div", null, Object.entries(routes).map(([group, groupRoutes]) => /* @__PURE__ */ import_react.default.createElement("div", { key: group, className: "route-group" }, /* @__PURE__ */ import_react.default.createElement("h2", null, group || "root"), /* @__PURE__ */ import_react.default.createElement("ul", null, groupRoutes.map((r) => /* @__PURE__ */ import_react.default.createElement("li", { key: `${r.verb}-${r.path}`, className: "route-item" }, /* @__PURE__ */ import_react.default.createElement(Path, { verb: r.verb, path: r.path })))))));
   }
@@ -19353,28 +19362,81 @@
   function Response({ response, error }) {
     return /* @__PURE__ */ import_react.default.createElement("div", null, error && /* @__PURE__ */ import_react.default.createElement("pre", { className: "error" }, error), response !== void 0 && /* @__PURE__ */ import_react.default.createElement("pre", { className: "response" }, JSON.stringify(response, null, 2)));
   }
-  function SwaggerView({ routes, routesError }) {
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Available endpoints"), routesError && /* @__PURE__ */ import_react.default.createElement("pre", { className: "error" }, routesError), Object.keys(routes).length > 0 && /* @__PURE__ */ import_react.default.createElement(RoutesList, { routes }));
+  function SwaggerView() {
+    const [routes, setRoutes] = import_react.default.useState({});
+    import_react.default.useEffect(() => {
+      fetch("/api/routes", { headers: { "Content-Type": "application/json" } }).then(safeJson).then((json) => setRoutes(json && json.routes || {}));
+    }, []);
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Available endpoints"), Object.keys(routes).length > 0 && /* @__PURE__ */ import_react.default.createElement(RoutesList, { routes }));
   }
 
   // public/src/ChatsView.jsx
   var import_react2 = __toESM(require_react());
+  function safeJson2(res) {
+    return res.text().then((text) => {
+      try {
+        return JSON.parse(text);
+      } catch {
+        return text;
+      }
+    });
+  }
+  function client() {
+    const baseRoute = "http://localhost:3000/api/chats";
+    return {
+      list: () => fetch(`${baseRoute}`).then(safeJson2),
+      show: (id) => fetch(`${baseRoute}/${id}`).then(safeJson2),
+      create: (chat) => fetch(`${baseRoute}`, {
+        method: "POST",
+        body: JSON.stringify(chat)
+      }).then(safeJson2),
+      update: (id, chat) => fetch(`${baseRoute}/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(chat)
+      }).then(safeJson2),
+      destroy: (id) => fetch(`${baseRoute}/${id}`, {
+        method: "DELETE"
+      }).then(safeJson2)
+    };
+  }
   function ChatsView() {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h1", null, "Chats"), /* @__PURE__ */ import_react2.default.createElement("p", null, "Chats page coming soon."));
+    const [chats, setChats] = import_react2.default.useState([]);
+    import_react2.default.useEffect(() => {
+      client().list().then((chats2) => setChats(chats2.chats));
+    }, []);
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h1", null, "Chats"), chats.map((chat) => /* @__PURE__ */ import_react2.default.createElement(Chat, { key: chat.id, chat })));
+  }
+  function Chat({ chat }) {
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, chat.name), /* @__PURE__ */ import_react2.default.createElement("div", { className: "chat-messages" }, chat.messages.map((message) => /* @__PURE__ */ import_react2.default.createElement(Message, { key: message.id, message }))), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: () => client().destroy(chat.id) }, "Delete"));
+  }
+  function Message({ message }) {
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, message.content);
   }
 
   // public/App.jsx
-  function App() {
-    const [page, setPage] = import_react3.default.useState("swagger");
-    const [routes, setRoutes] = import_react3.default.useState({});
-    const [routesError, setRoutesError] = import_react3.default.useState(null);
+  function useSimpleRouter(routeMap, defaultRoute) {
+    const getRoute = (pathname) => routeMap[pathname] || defaultRoute;
+    const [route, setRoute] = import_react3.default.useState(() => getRoute(window.location.pathname));
     import_react3.default.useEffect(() => {
-      if (page === "swagger") {
-        setRoutesError(null);
-        fetch("/api/routes", { headers: { "Content-Type": "application/json" } }).then((res) => res.json()).then((json) => setRoutes(json.routes || {})).catch((e) => setRoutesError(String(e)));
-      }
-    }, [page]);
-    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "app-container" }, /* @__PURE__ */ import_react3.default.createElement("nav", { style: { marginBottom: 20 } }, /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => setPage("swagger") }, "API Explorer"), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => setPage("chats") }, "Chats")), page === "swagger" && /* @__PURE__ */ import_react3.default.createElement(SwaggerView, { routes, routesError }), page === "chats" && /* @__PURE__ */ import_react3.default.createElement(ChatsView, null));
+      const onPopState = () => setRoute(getRoute(window.location.pathname));
+      window.addEventListener("popstate", onPopState);
+      return () => window.removeEventListener("popstate", onPopState);
+    }, []);
+    const navigate = (path) => {
+      window.history.pushState({}, "", path);
+      setRoute(getRoute(path));
+    };
+    return [route, navigate];
+  }
+  function App() {
+    const routeMap = {
+      "/": "swagger",
+      "/chats": "chats"
+      // Add more routes here as needed
+    };
+    const defaultRoute = "swagger";
+    const [page, navigate] = useSimpleRouter(routeMap, defaultRoute);
+    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "app-container" }, /* @__PURE__ */ import_react3.default.createElement("nav", { style: { marginBottom: 20 } }, /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => navigate("/") }, "API Explorer"), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => navigate("/chats") }, "Chats")), page === "swagger" && /* @__PURE__ */ import_react3.default.createElement(SwaggerView, null), page === "chats" && /* @__PURE__ */ import_react3.default.createElement(ChatsView, null));
   }
 
   // public/index.jsx

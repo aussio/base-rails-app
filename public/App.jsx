@@ -2,28 +2,42 @@ import React from "react";
 import SwaggerView from "./src/SwaggerView.jsx";
 import ChatsView from "./src/ChatsView.jsx";
 
-export default function App() {
-  const [page, setPage] = React.useState("swagger");
-  const [routes, setRoutes] = React.useState({});
-  const [routesError, setRoutesError] = React.useState(null);
+// Simple router hook for SPA navigation
+function useSimpleRouter(routeMap, defaultRoute) {
+  const getRoute = (pathname) => routeMap[pathname] || defaultRoute;
+  const [route, setRoute] = React.useState(() => getRoute(window.location.pathname));
 
   React.useEffect(() => {
-    if (page === "swagger") {
-      setRoutesError(null);
-      fetch("/api/routes", { headers: { "Content-Type": "application/json" } })
-        .then((res) => res.json())
-        .then((json) => setRoutes(json.routes || {}))
-        .catch((e) => setRoutesError(String(e)));
-    }
-  }, [page]);
+    const onPopState = () => setRoute(getRoute(window.location.pathname));
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  const navigate = (path) => {
+    window.history.pushState({}, "", path);
+    setRoute(getRoute(path));
+  };
+
+  return [route, navigate];
+}
+
+export default function App() {
+  // Map paths to components
+  const routeMap = {
+    "/": "swagger",
+    "/chats": "chats",
+    // Add more routes here as needed
+  };
+  const defaultRoute = "swagger";
+  const [page, navigate] = useSimpleRouter(routeMap, defaultRoute);
 
   return (
     <div className="app-container">
       <nav style={{ marginBottom: 20 }}>
-        <button onClick={() => setPage("swagger")}>API Explorer</button>
-        <button onClick={() => setPage("chats")}>Chats</button>
+        <button onClick={() => navigate("/")}>API Explorer</button>
+        <button onClick={() => navigate("/chats")}>Chats</button>
       </nav>
-      {page === "swagger" && <SwaggerView routes={routes} routesError={routesError} />}
+      {page === "swagger" && <SwaggerView />}
       {page === "chats" && <ChatsView />}
     </div>
   );

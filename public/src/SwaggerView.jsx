@@ -1,5 +1,15 @@
 import React from "react";
 
+function safeJson(res) {
+  return res.text().then(text => {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  });
+}
+
 function RoutesList({ routes }) {
   return (
     <div>
@@ -70,11 +80,18 @@ function Response({ response, error }) {
   );
 }
 
-export default function SwaggerView({ routes, routesError }) {
+export default function SwaggerView() {
+  const [routes, setRoutes] = React.useState({});
+
+  React.useEffect(() => {
+    fetch("/api/routes", { headers: { "Content-Type": "application/json" } })
+      .then(safeJson)
+      .then((json) => setRoutes((json && json.routes) || {}));
+  }, []);
+
   return (
     <div>
       <h1>Available endpoints</h1>
-      {routesError && <pre className="error">{routesError}</pre>}
       {Object.keys(routes).length > 0 && <RoutesList routes={routes} />}
     </div>
   );

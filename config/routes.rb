@@ -20,4 +20,9 @@ Rails.application.routes.draw do
     get "chats/:chat_id/messages/:message_id", to: "messages#show"
     delete "chats/:chat_id/messages/:message_id", to: "messages#destroy"
   end
+
+  # Catch-all route for frontend (except for /api and /sidekiq)
+  get '*path', to: 'home#index', constraints: lambda { |req|
+    req.path.exclude?('api') && req.path.exclude?('sidekiq')
+  }
 end
