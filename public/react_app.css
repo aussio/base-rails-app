@@ -3,16 +3,11 @@
   padding: 16px;
 }
 
-.section-sep {
-  margin: 24px 0;
-}
-
 .error {
   color: crimson;
 }
 
 .route-item {
-  margin: 24px 0;
   list-style-type: none;
 }
 

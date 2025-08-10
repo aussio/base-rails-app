@@ -21,13 +21,18 @@ module Api
           !r[:path].start_with?("/cable") &&
           !r[:path].start_with?("/assets") &&
           !r[:path].start_with?("/sidekiq") &&
-          !r[:path].include?(":format")
+          !r[:path].include?("historical_location")
+      end
+
+      # Clean up the (.:format) from the name
+      routes.each do |r|
+        r[:path] = r[:path].gsub(/\(.:format\)/, "")
       end
 
       routes = routes.uniq { |r| [r[:verb], r[:path]] }
       routes.sort_by! { |r| r[:path] }
 
-      render json: { routes: routes }
+      render json: { routes: Api::RoutesSerializer.index(routes) }
     end
   end
 end

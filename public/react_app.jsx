@@ -1,13 +1,23 @@
 function App() {
-  const [routes, setRoutes] = React.useState([]);
+  // A hash of routes by namespace
+  const [routes, setRoutes] = React.useState({});
   const [routesError, setRoutesError] = React.useState(null);
 
   async function loadRoutes() {
     setRoutesError(null);
     try {
+      // Returns a list of routes by namespace. Like:
+      // {
+      //   "chats": [
+      //     { "verb": "GET", "path": "/api/chats" },
+      //     { "verb": "POST", "path": "/api/chats" },
+      //     { "verb": "PUT", "path": "/api/chats/:id" },
+      //     { "verb": "DELETE", "path": "/api/chats/:id" }
+      //   ]
+      // }
       const res = await fetch("/api/routes", { headers: { "Content-Type": "application/json" } });
       const json = await res.json();
-      setRoutes(json.routes || []);
+      setRoutes(json.routes || {});
     } catch (e) {
       setRoutesError(String(e));
     }
@@ -21,7 +31,7 @@ function App() {
     <div className="app-container">
       <h1>Available endpoints</h1>  
       {routesError && <pre className="error">{routesError}</pre>}
-      {routes.length > 0 && (
+      {Object.keys(routes).length > 0 && (
         <RoutesList routes={routes} />
       )}
     </div>
@@ -30,13 +40,20 @@ function App() {
 
 function RoutesList({ routes }) {
   return (
-    <ul>
-      {routes.map((r) => (
-        <li key={`${r.verb}-${r.path}`} className="route-item">
-          <Path verb={r.verb} path={r.path} />
-        </li>
+    <div>
+      {Object.entries(routes).map(([group, groupRoutes]) => (
+        <div key={group} className="route-group">
+          <h2>{group || 'root'}</h2>
+          <ul>
+            {groupRoutes.map((r) => (
+              <li key={`${r.verb}-${r.path}`} className="route-item">
+                <Path verb={r.verb} path={r.path} />
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
