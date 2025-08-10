@@ -62,3 +62,9 @@ group :development do
   gem "web-console"
   gem "annotate"
 end
+
+gem "factory_bot_rails", groups: [:development, :test]
+
+gem "faker", "~> 3.5", groups: [:development, :test]
+
+gem "shoulda-matchers", "~> 6.5", groups: [:development, :test]

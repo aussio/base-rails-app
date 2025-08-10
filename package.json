@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "esbuild": "^0.25.8",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "scripts": {
+    "build": "esbuild public/index.jsx --bundle --outfile=public/bundle.js --loader:.jsx=jsx --loader:.js=jsx",
+    "watch": "esbuild public/index.jsx --bundle --outfile=public/bundle.js --loader:.jsx=jsx --loader:.js=jsx --watch"
+  }
+}
