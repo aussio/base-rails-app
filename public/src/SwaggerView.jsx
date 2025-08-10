@@ -10,6 +10,30 @@ function safeJson(res) {
   });
 }
 
+function client() {
+  const baseRoute = "http://localhost:3000/api/routes";
+  const headers = { "Content-Type": "application/json" };
+  const baseFetch = (path, options) => fetch(`${baseRoute}${path}`, { headers, ...options }).then(safeJson);
+  return {
+    list: () => baseFetch(""),
+  };
+}
+
+export default function SwaggerView() {
+  const [routes, setRoutes] = React.useState({});
+
+  React.useEffect(() => {
+    client().list().then((routes) => setRoutes(routes.routes));
+  }, []);
+
+  return (
+    <div>
+      <h1>Available endpoints</h1>
+      {Object.keys(routes).length > 0 && <RoutesList routes={routes} />}
+    </div>
+  );
+}
+
 function RoutesList({ routes }) {
   return (
     <div>
@@ -76,23 +100,6 @@ function Response({ response, error }) {
       {response !== undefined && (
         <pre className="response">{JSON.stringify(response, null, 2)}</pre>
       )}
-    </div>
-  );
-}
-
-export default function SwaggerView() {
-  const [routes, setRoutes] = React.useState({});
-
-  React.useEffect(() => {
-    fetch("/api/routes", { headers: { "Content-Type": "application/json" } })
-      .then(safeJson)
-      .then((json) => setRoutes((json && json.routes) || {}));
-  }, []);
-
-  return (
-    <div>
-      <h1>Available endpoints</h1>
-      {Object.keys(routes).length > 0 && <RoutesList routes={routes} />}
     </div>
   );
 }

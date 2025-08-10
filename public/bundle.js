@@ -1300,7 +1300,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React5 = require_react(), Internals = {
+        var React6 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1318,7 +1318,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2860,7 +2860,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React5.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React6.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -16442,14 +16442,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React5 = require_react(), ReactDOM2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React6 = require_react(), ReactDOM2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
         Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
         Symbol.for("react.legacy_hidden");
         Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
         Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -19171,7 +19171,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React5.version;
+          var isomorphicReactPackageVersion = React6.version;
           if ("19.1.1" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.1.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -19312,11 +19312,11 @@
   });
 
   // public/index.jsx
-  var import_react4 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // public/App.jsx
-  var import_react3 = __toESM(require_react());
+  var import_react4 = __toESM(require_react());
 
   // public/src/SwaggerView.jsx
   var import_react = __toESM(require_react());
@@ -19328,6 +19328,21 @@
         return text;
       }
     });
+  }
+  function client() {
+    const baseRoute = "http://localhost:3000/api/routes";
+    const headers = { "Content-Type": "application/json" };
+    const baseFetch = (path, options) => fetch(`${baseRoute}${path}`, { headers, ...options }).then(safeJson);
+    return {
+      list: () => baseFetch("")
+    };
+  }
+  function SwaggerView() {
+    const [routes, setRoutes] = import_react.default.useState({});
+    import_react.default.useEffect(() => {
+      client().list().then((routes2) => setRoutes(routes2.routes));
+    }, []);
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Available endpoints"), Object.keys(routes).length > 0 && /* @__PURE__ */ import_react.default.createElement(RoutesList, { routes }));
   }
   function RoutesList({ routes }) {
     return /* @__PURE__ */ import_react.default.createElement("div", null, Object.entries(routes).map(([group, groupRoutes]) => /* @__PURE__ */ import_react.default.createElement("div", { key: group, className: "route-group" }, /* @__PURE__ */ import_react.default.createElement("h2", null, group || "root"), /* @__PURE__ */ import_react.default.createElement("ul", null, groupRoutes.map((r) => /* @__PURE__ */ import_react.default.createElement("li", { key: `${r.verb}-${r.path}`, className: "route-item" }, /* @__PURE__ */ import_react.default.createElement(Path, { verb: r.verb, path: r.path })))))));
@@ -19362,16 +19377,14 @@
   function Response({ response, error }) {
     return /* @__PURE__ */ import_react.default.createElement("div", null, error && /* @__PURE__ */ import_react.default.createElement("pre", { className: "error" }, error), response !== void 0 && /* @__PURE__ */ import_react.default.createElement("pre", { className: "response" }, JSON.stringify(response, null, 2)));
   }
-  function SwaggerView() {
-    const [routes, setRoutes] = import_react.default.useState({});
-    import_react.default.useEffect(() => {
-      fetch("/api/routes", { headers: { "Content-Type": "application/json" } }).then(safeJson).then((json) => setRoutes(json && json.routes || {}));
-    }, []);
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Available endpoints"), Object.keys(routes).length > 0 && /* @__PURE__ */ import_react.default.createElement(RoutesList, { routes }));
-  }
 
   // public/src/ChatsView.jsx
+  var import_react3 = __toESM(require_react());
+
+  // public/src/Messages.jsx
   var import_react2 = __toESM(require_react());
+
+  // public/src/helpers.js
   function safeJson2(res) {
     return res.text().then((text) => {
       try {
@@ -19381,43 +19394,99 @@
       }
     });
   }
-  function client() {
-    const baseRoute = "http://localhost:3000/api/chats";
+
+  // public/src/Messages.jsx
+  function message_client(chat_id) {
+    const baseRoute = `http://localhost:3000/api/chats/${chat_id}/messages`;
+    const headers = { "Content-Type": "application/json" };
+    const baseFetch = (path, options) => fetch(`${baseRoute}${path}`, { headers, ...options }).then(safeJson2);
     return {
-      list: () => fetch(`${baseRoute}`).then(safeJson2),
-      show: (id) => fetch(`${baseRoute}/${id}`).then(safeJson2),
-      create: (chat) => fetch(`${baseRoute}`, {
-        method: "POST",
-        body: JSON.stringify(chat)
-      }).then(safeJson2),
-      update: (id, chat) => fetch(`${baseRoute}/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(chat)
-      }).then(safeJson2),
-      destroy: (id) => fetch(`${baseRoute}/${id}`, {
-        method: "DELETE"
-      }).then(safeJson2)
+      list: () => baseFetch(""),
+      create: (message) => baseFetch("", { method: "POST", body: JSON.stringify(message) }),
+      destroy: (message_id) => baseFetch(`/${message_id}`, { method: "DELETE" })
+    };
+  }
+  function Message({ message, setMessages }) {
+    const chat_id = message.chat_id;
+    function deleteMessage() {
+      message_client(chat_id).destroy(message.id).then(() => {
+        console.log("deleted message", message);
+        message_client(chat_id).list().then((response) => {
+          setMessages(response.messages);
+        });
+      });
+    }
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: "message" }, /* @__PURE__ */ import_react2.default.createElement("p", null, message.content), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: () => deleteMessage(message.id) }, "Delete"));
+  }
+  function MessageForm({ chat, setMessages }) {
+    const [newMessage, setNewMessage] = import_react2.default.useState("");
+    function createMessage() {
+      const message = { message: { content: newMessage } };
+      message_client(chat.id).create(message).then(() => {
+        message_client(chat.id).list().then((response) => {
+          setMessages(response.messages);
+        });
+      });
+      setNewMessage("");
+    }
+    function handleKeyDown(e) {
+      if (e.key === "Enter") {
+        createMessage();
+      }
+    }
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: "message-form" }, /* @__PURE__ */ import_react2.default.createElement(
+      "input",
+      {
+        type: "text",
+        placeholder: "New Message",
+        onKeyDown: handleKeyDown,
+        value: newMessage,
+        onChange: (e) => setNewMessage(e.target.value)
+      }
+    ));
+  }
+
+  // public/src/ChatsView.jsx
+  function chat_client() {
+    const baseRoute = "http://localhost:3000/api/chats";
+    const headers = { "Content-Type": "application/json" };
+    const baseFetch = (path, options) => fetch(`${baseRoute}${path}`, { headers, ...options }).then(safeJson2);
+    return {
+      list: () => baseFetch(""),
+      show: (id) => baseFetch(`/${id}`),
+      create: (chat) => baseFetch("", { method: "POST", body: JSON.stringify(chat) }),
+      update: (id, chat) => baseFetch(`/${id}`, { method: "PUT", body: JSON.stringify(chat) }),
+      destroy: (id) => baseFetch(`/${id}`, { method: "DELETE" })
     };
   }
   function ChatsView() {
-    const [chats, setChats] = import_react2.default.useState([]);
-    import_react2.default.useEffect(() => {
-      client().list().then((chats2) => setChats(chats2.chats));
+    const [chats, setChats] = import_react3.default.useState([]);
+    const [newChatName, setNewChatName] = import_react3.default.useState("");
+    function fetchChats() {
+      chat_client().list().then((chats2) => setChats(chats2.chats));
+    }
+    function createChat() {
+      const chat = { chat: { name: newChatName } };
+      chat_client().create(chat).then(fetchChats);
+    }
+    import_react3.default.useEffect(() => {
+      fetchChats();
     }, []);
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h1", null, "Chats"), chats.map((chat) => /* @__PURE__ */ import_react2.default.createElement(Chat, { key: chat.id, chat })));
+    return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("h1", null, "Chats"), /* @__PURE__ */ import_react3.default.createElement("div", { className: "chat-form" }, /* @__PURE__ */ import_react3.default.createElement("input", { type: "text", placeholder: "New Chat", value: newChatName, onChange: (e) => setNewChatName(e.target.value) }), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: createChat }, "Create Chat")), chats.map((chat) => /* @__PURE__ */ import_react3.default.createElement(Chat, { key: chat.id, chat, fetchChats })));
   }
-  function Chat({ chat }) {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, chat.name), /* @__PURE__ */ import_react2.default.createElement("div", { className: "chat-messages" }, chat.messages.map((message) => /* @__PURE__ */ import_react2.default.createElement(Message, { key: message.id, message }))), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: () => client().destroy(chat.id) }, "Delete"));
-  }
-  function Message({ message }) {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, message.content);
+  function Chat({ chat, fetchChats }) {
+    const [messages, setMessages] = import_react3.default.useState(chat.messages);
+    function deleteChat() {
+      chat_client().destroy(chat.id).then(fetchChats);
+    }
+    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "chat" }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "chat-header" }, /* @__PURE__ */ import_react3.default.createElement("h2", null, chat.name), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => deleteChat() }, "Delete")), /* @__PURE__ */ import_react3.default.createElement("div", { className: "chat-messages" }, messages.map((message) => /* @__PURE__ */ import_react3.default.createElement(Message, { key: message.id, message, setMessages })), /* @__PURE__ */ import_react3.default.createElement(MessageForm, { chat, setMessages })));
   }
 
   // public/App.jsx
   function useSimpleRouter(routeMap, defaultRoute) {
     const getRoute = (pathname) => routeMap[pathname] || defaultRoute;
-    const [route, setRoute] = import_react3.default.useState(() => getRoute(window.location.pathname));
-    import_react3.default.useEffect(() => {
+    const [route, setRoute] = import_react4.default.useState(() => getRoute(window.location.pathname));
+    import_react4.default.useEffect(() => {
       const onPopState = () => setRoute(getRoute(window.location.pathname));
       window.addEventListener("popstate", onPopState);
       return () => window.removeEventListener("popstate", onPopState);
@@ -19436,14 +19505,14 @@
     };
     const defaultRoute = "swagger";
     const [page, navigate] = useSimpleRouter(routeMap, defaultRoute);
-    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "app-container" }, /* @__PURE__ */ import_react3.default.createElement("nav", { style: { marginBottom: 20 } }, /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => navigate("/") }, "API Explorer"), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: () => navigate("/chats") }, "Chats")), page === "swagger" && /* @__PURE__ */ import_react3.default.createElement(SwaggerView, null), page === "chats" && /* @__PURE__ */ import_react3.default.createElement(ChatsView, null));
+    return /* @__PURE__ */ import_react4.default.createElement("div", { className: "app-container" }, /* @__PURE__ */ import_react4.default.createElement("nav", { style: { marginBottom: 20 } }, /* @__PURE__ */ import_react4.default.createElement("button", { onClick: () => navigate("/") }, "API Explorer"), /* @__PURE__ */ import_react4.default.createElement("button", { onClick: () => navigate("/chats") }, "Chats")), page === "swagger" && /* @__PURE__ */ import_react4.default.createElement(SwaggerView, null), page === "chats" && /* @__PURE__ */ import_react4.default.createElement(ChatsView, null));
   }
 
   // public/index.jsx
   var container = document.getElementById("root");
   if (container) {
     const root = import_client.default.createRoot(container);
-    root.render(/* @__PURE__ */ import_react4.default.createElement(App, null));
+    root.render(/* @__PURE__ */ import_react5.default.createElement(App, null));
   }
 })();
 /*! Bundled license information:

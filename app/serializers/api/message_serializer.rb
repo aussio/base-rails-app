@@ -8,6 +8,7 @@ module Api
       {
         id: message.id,
         content: message.content,
+        chat_id: message.chat_id,
       }
     end
   end

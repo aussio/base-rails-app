@@ -1,7 +1,7 @@
 module Api
   class ChatsController < ApplicationController
     def index
-      chats = Chat.all
+      chats = Chat.all.includes(:messages)
       render json: { chats: ChatSerializer.index(chats) }, status: :ok
     end
 
@@ -17,16 +17,17 @@ module Api
       raise "Not implemented"
     end
 
-    # GET /api/chats/:id
+    # GET /api/chats/:chat_id
     def show
-      chat = Chat.find(params[:id])
+      chat = Chat.find(params[:chat_id])
       render json: { chat: Api::ChatSerializer.show(chat) }, status: :ok
     end
 
+    # DELETE /api/chats/:id
     def destroy
-      chat = Chat.find(params[:id])
+      chat = Chat.find(params[:chat_id])
       chat.destroy!
-      render status: :no_content
+      render json: {}, status: :no_content
     end
   end
 end

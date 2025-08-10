@@ -1,65 +1,72 @@
 import React from "react";
+import "./ChatsView.css";
+import { Message, MessageForm } from "./Messages";
+import { safeJson } from "./helpers";
 
-function safeJson(res) {
-  return res.text().then(text => {
-    try {
-      return JSON.parse(text);
-    } catch {
-      return text;
-    }
-  });
-}
 
-function client() {
+function chat_client() {
   const baseRoute = "http://localhost:3000/api/chats";
+  const headers = { "Content-Type": "application/json" };
+  const baseFetch = (path, options) => fetch(`${baseRoute}${path}`, { headers, ...options }).then(safeJson);
   return {
-    list: () => fetch(`${baseRoute}`).then(safeJson),
-    show: (id) => fetch(`${baseRoute}/${id}`).then(safeJson),
-    create: (chat) => fetch(`${baseRoute}`, {
-      method: "POST",
-      body: JSON.stringify(chat),
-    }).then(safeJson),
-    update: (id, chat) => fetch(`${baseRoute}/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(chat),
-    }).then(safeJson),
-    destroy: (id) => fetch(`${baseRoute}/${id}`, {
-      method: "DELETE",
-    }).then(safeJson),
+    list: () => baseFetch(""),
+    show: (id) => baseFetch(`/${id}`),
+    create: (chat) => baseFetch("", { method: "POST", body: JSON.stringify(chat) }),
+    update: (id, chat) => baseFetch(`/${id}`, { method: "PUT", body: JSON.stringify(chat) }),
+    destroy: (id) => baseFetch(`/${id}`, { method: "DELETE" }),
   };
 }
 
 export default function ChatsView() {
   const [chats, setChats] = React.useState([]);
+  const [newChatName, setNewChatName] = React.useState("");
+
+  function fetchChats() {
+    chat_client().list().then((chats) => setChats(chats.chats));
+  }
+
+  function createChat() {
+    const chat = { chat: { name: newChatName } };
+    chat_client().create(chat).then(fetchChats);
+  }
 
   React.useEffect(() => {
-    client().list().then((chats) => setChats(chats.chats));
+    fetchChats();
   }, []);
 
   return (
     <div>
       <h1>Chats</h1>
+      <div className="chat-form"> 
+        <input type="text" placeholder="New Chat" value={newChatName} onChange={(e) => setNewChatName(e.target.value)} />
+        <button onClick={createChat}>Create Chat</button>
+      </div>
       {chats.map((chat) => (
-        <Chat key={chat.id} chat={chat} />
+        <Chat key={chat.id} chat={chat} fetchChats={fetchChats} />
       ))}
     </div>
   );
 }
 
-function Chat({ chat }) {
+function Chat({ chat, fetchChats }) {
+  const [messages, setMessages] = React.useState(chat.messages);
+
+  function deleteChat() {
+    chat_client().destroy(chat.id).then(fetchChats);
+  }
+
   return (
-    <div>
-      <h2>{chat.name}</h2>
-      <div className="chat-messages">
-        {chat.messages.map((message) => (
-          <Message key={message.id} message={message} />
-        ))}
+    <div className="chat">
+      <div className="chat-header">
+        <h2>{chat.name}</h2>
+        <button onClick={() => deleteChat()}>Delete</button>
       </div>
-      <button onClick={() => client().destroy(chat.id)}>Delete</button>
+      <div className="chat-messages">
+        {messages.map((message) => (
+          <Message key={message.id} message={message} setMessages={setMessages} />
+        ))}
+        <MessageForm chat={chat} setMessages={setMessages} />
+      </div>
     </div>
   );
-}
-
-function Message({ message }) {
-  return <div>{message.content}</div>;
 }
